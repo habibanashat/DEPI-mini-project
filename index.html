@@ -1,29 +1,460 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TO-DO</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
-<body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/all.min.css" />
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="../CSS/main.css" />
+    <title>Taskly</title>
+  </head>
 
+  <body>
+    <!-- navbar section -->
+    <nav
+      class="navbar navbar-expand-md bg-1 shadow-sm py-3 px-5 fixed-top bg-white"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="fa-solid fa-square-check"></i>
+          Taskly
+        </a>
 
+        <!-- Button trigger modal -->
+        <div class="nav-btn">
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#modal-overlay"
+            id="add-card-btn"
+            class="btn btn-outline-dark"
+          >
+            <i class="fa-solid fa-plus m-1"></i>
+            Add Task
+          </button>
+        </div>
+      </div>
+    </nav>
 
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="modal-overlay"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+          <!-- Header -->
+          <div class="modal-header bg-light border-bottom px-4 py-3">
+            <h1
+              class="modal-title fs-5 fw-bold text-dark"
+              id="exampleModalLabel"
+            >
+              <i class="fa-solid fa-plus text-primary-emphasis me-2"></i>
+              Create New Task
+            </h1>
 
+            <button
+              type="button"
+              class="btn-close"
+              id="close-modal-btn"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
+          <form id="task-form">
+            <!-- Body -->
+            <div class="modal-body bg-white p-4">
+              <!-- Task Title -->
+              <div class="d-flex flex-column gap-2 mb-4">
+                <label
+                  for="task-input"
+                  class="form-label fw-semibold text-dark mb-0"
+                >
+                  <i class="fa-solid fa-heading text-primary-emphasis me-2"></i>
+                  Task Title <span class="text-danger">*</span>
+                </label>
 
+                <input
+                  type="text"
+                  id="task-input"
+                  placeholder="What needs to be done?"
+                  class="form-control rounded-3 py-2"
+                  required
+                />
+              </div>
 
+              <!-- Priority and Due Date -->
+              <div class="row g-3 mb-4">
+                <div class="col-12 col-md-6">
+                  <label
+                    for="priority-picker"
+                    class="form-label fw-semibold text-dark"
+                  >
+                    <i class="fa-solid fa-flag text-primary-emphasis me-2"></i>
+                    Priority
+                  </label>
 
+                  <select
+                    id="priority-picker"
+                    class="form-select rounded-3 py-2"
+                  >
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
 
+                <div class="col-12 col-md-6">
+                  <label
+                    for="task-date"
+                    class="form-label fw-semibold text-dark"
+                  >
+                    <i
+                      class="fa-regular fa-calendar text-primary-emphasis me-2"
+                    ></i>
+                    Due Date
+                  </label>
 
-    
-    <script src="js/main.js"></script>
-    <script src="js/jquery-4.0.0.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/all.min.js"></script>
-</body>
+                  <input
+                    type="date"
+                    id="task-date"
+                    class="form-control rounded-3 py-2"
+                  />
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="d-flex flex-column gap-2">
+                <label
+                  for="Description"
+                  class="form-label fw-semibold text-dark mb-0"
+                >
+                  <i
+                    class="fa-solid fa-align-left text-primary-emphasis me-2"
+                  ></i>
+                  Description
+                </label>
+
+                <textarea
+                  id="Description"
+                  rows="3"
+                  placeholder="Add more details about this task..."
+                  class="form-control rounded-3"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light border-top px-4 py-3">
+              <button
+                type="button"
+                class="btn btn-light border rounded-3 px-3"
+                data-bs-dismiss="modal"
+                id="cancel-btn"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                id="submit-btn"
+                class="btn btn-primary rounded-3 px-3 fw-semibold"
+              >
+                <i class="fa-solid fa-plus me-1"></i>
+                Add Task
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="successful-toaster rounded-4 d-flex px-3 justify-content-center align-items-center pt-3 position-absolute d-none"
+      id="successfull-task"
+    >
+      <p>Task added successfully!</p>
+    </div>
+
+    <!-- main title -->
+    <header>
+      <div class="container m-auto mt-5 pt-5 mb-4">
+        <div class="header-content d-flex justify-content-between">
+          <div class="main-title">
+            <h1 class="fw-bold">My Tasks</h1>
+            <p>Keep Track Of What Matters Today.</p>
+          </div>
+
+          <div
+            class="main-date d-flex justify-content-center align-items-center"
+          >
+            <span
+              class="badge rounded-pill py-2 px-4 bg-secondary-subtle text-secondary"
+            >
+              <i class="fa-regular fa-calendar"></i> Saturday, Oct 10
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- summary section -->
+      <section class="task-summary">
+        <div class="container">
+          <div class="row">
+            <!-- total tasks -->
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div
+                class="total-tasks border border-secondary-subtle bg-primary-subtle rounded-4 p-4"
+              >
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-4">
+                    <!-- total icon -->
+                    <div
+                      class="total-icon d-flex justify-content-center align-items-center"
+                    >
+                      <i class="fa-solid fa-layer-group text-primary fs-2"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-8">
+                    <!-- total count -->
+                    <div class="total-count">
+                      <p class="m-0">Total Tasks</p>
+                      <p id="total-nums" class="fw-bold h2">5</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- active tasks -->
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div
+                class="active-tasks border border-secondary-subtle bg-warning-subtle rounded-4 p-4"
+              >
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-4">
+                    <!-- active icon -->
+                    <div
+                      class="active-icon d-flex justify-content-center align-items-center"
+                    >
+                      <i class="fa-regular fa-clock text-warning fs-2"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-8">
+                    <!-- active count -->
+                    <div class="total-count">
+                      <p class="m-0">Active Tasks</p>
+                      <p id="active-nums" class="fw-bold h2">3</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- completed tasks -->
+            <div class="col-md-6 col-lg-4 mb-3">
+              <div
+                class="completed-tasks border border-secondary-subtle bg-success-subtle rounded-4 p-4"
+              >
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-4">
+                    <!-- completed icon -->
+                    <div
+                      class="completed-icon d-flex justify-content-center align-items-center"
+                    >
+                      <i class="fa-solid fa-circle-check text-success fs-2"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-8">
+                    <!-- completed count -->
+                    <div class="completed-count">
+                      <p class="m-0">Completed Tasks</p>
+                      <p id="completed-nums" class="fw-bold h2">2</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- filter & search section -->
+      <section class="filter-search mt-5">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-md-6">
+              <!-- counts -->
+              <div
+                id="filters"
+                class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center"
+              >
+                <div
+                  class="active-count bg-secondary rounded-pill py-1 px-4 text-white"
+                >
+                  <p id="count-all" class="mb-0">All (5)</p>
+                </div>
+
+                <p id="count-active" class="mb-0">Active (3)</p>
+                <p id="count-completed" class="mb-0">Completed (2)</p>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <input
+                type="search"
+                id="search-input"
+                class="form-control py-2 ps-3 rounded-4"
+                placeholder="⌕ Search Tasks ..."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- cards list -->
+      <section class="cards-list mt-4">
+        <div class="container">
+          <div class="row g-4" id="task-list">
+            <!-- Task Card 1 -->
+            <div class="col-md-6">
+              <div
+                class="card h-100 border-0 border-start border-5 border-danger shadow-sm rounded-3"
+              >
+                <!-- Card Header -->
+                <div class="card-header bg-white border-0 p-4">
+                  <div class="d-flex gap-3">
+                    <i class="fa-regular fa-circle fs-4 mt-1 status-circle"></i>
+
+                    <div class="card-title">
+                      <h5 class="fw-bold mb-2 task-title">
+                        Finish JavaScript Assignment
+                      </h5>
+
+                      <p class="text-secondary mb-0">
+                        Complete array methods and functions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body bg-white pt-0 px-4 pb-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <span
+                      class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 priority-badge"
+                    >
+                      High Priority
+                    </span>
+
+                    <span
+                      class="text-secondary badge bg-secondary-subtle rounded-pill px-3 py-2 border border-secondary task-date"
+                    >
+                      <i class="fa-regular fa-calendar me-1"></i>
+                      Oct 15, 2026
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-white border-0 px-4 pb-4 pt-0">
+                  <div class="d-flex justify-content-end gap-2">
+                    <button
+                      class="btn rounded-2 btn-sm fw-semibold btn-outline-primary edit-btn"
+                    >
+                      <i class="fa-solid fa-pen me-1"></i>
+                      Edit
+                    </button>
+
+                    <button
+                      class="btn rounded-2 btn-sm fw-semibold btn-outline-danger delete-btn"
+                    >
+                      <i class="fa-solid fa-trash me-1"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task Card 2 -->
+            <div class="col-md-6">
+              <div
+                class="card h-100 border-0 border-start border-5 border-success shadow-sm rounded-3"
+              >
+                <!-- Card Header -->
+                <div class="card-header bg-white border-0 p-4">
+                  <div class="d-flex gap-3">
+                    <i
+                      class="fa-solid fa-circle-check text-success fs-4 mt-1 status-circle"
+                    ></i>
+
+                    <div class="removed-card-title">
+                      <h5
+                        class="fw-bold mb-2 text-decoration-line-through text-secondary task-title"
+                      >
+                        Review React Components
+                      </h5>
+
+                      <p class="text-secondary mb-0">
+                        Review reusable components.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body bg-white pt-0 px-4 pb-3">
+                  <div class="d-flex align-items-center gap-3">
+                    <span
+                      class="badge rounded-pill bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 priority-badge"
+                    >
+                      Medium Priority
+                    </span>
+
+                    <span
+                      class="text-secondary badge bg-secondary-subtle rounded-pill px-3 py-2 border border-secondary task-date"
+                    >
+                      <i class="fa-regular fa-calendar me-1"></i>
+                      Today
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="card-footer bg-white border-0 px-4 pb-4 pt-0">
+                  <div class="d-flex justify-content-end gap-2">
+                    <button
+                      class="btn rounded-2 btn-sm fw-semibold btn-outline-primary edit-btn"
+                    >
+                      <i class="fa-solid fa-pen me-1"></i>
+                      Edit
+                    </button>
+
+                    <button
+                      class="btn rounded-2 btn-sm fw-semibold btn-outline-danger delete-btn"
+                    >
+                      <i class="fa-solid fa-trash me-1"></i>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../JS/bootstrap.bundle.min.js"></script>
+    <script src="../JS/main.js"></script>
+  </body>
 </html>
