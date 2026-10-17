@@ -38,10 +38,16 @@ const filterTabs = document.querySelectorAll('[data-filter]');
 
 filterTabs.forEach(function(tab) {
     tab.addEventListener('click', function(e) {
-      const clickedFilter = e.target.getAttribute('data-filter');
-      setFilter(clickedFilter);
+    
+        const clickedTab = e.currentTarget;
+        
+        filterTabs.forEach(function(t){t.classList.remove('active-filter')});
+        clickedTab.classList.add('active-filter');
+
+        const clickedFilter = clickedTab.getAttribute('data-filter');
+        setFilter(clickedFilter);
     });
-  });
+});
 
 
   // Function 12 => Searching for a task
@@ -58,3 +64,4 @@ searchInput.addEventListener('input', function(e) {
     const typedText = e.target.value;
     searchTasks(typedText);
 });
+
