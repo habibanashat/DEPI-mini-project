@@ -297,14 +297,19 @@
                 id="filters"
                 class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center"
               >
-                <div
-                  class="active-count bg-secondary rounded-pill py-1 px-4 text-white"
+                <button
+                  id="count-all"
+                  class="active-count all btn bg-secondary rounded-pill py-1 px-4 text-white mb-0"
                 >
-                  <p id="count-all" class="mb-0">All (5)</p>
-                </div>
+                  All (5)
+                </button>
 
-                <p id="count-active" class="mb-0">Active (3)</p>
-                <p id="count-completed" class="mb-0">Completed (2)</p>
+                <button id="count-active" class="btn active border-0 mb-0">
+                  Active (3)
+                </button>
+                <button id="count-completed" class="btn completed border-0 mb-0">
+                  Completed (2)
+                </button>
               </div>
             </div>
 
@@ -448,6 +453,37 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- empty state -->
+      <section class="empty-state d-none">
+        <div class="container">
+          <div
+            class="empty-design d-flex flex-column justify-content-center align-items-center border shadow-sm p-5 rounded-4 bg-info-subtle vh-100"
+          >
+            <div class="empty-icon">
+              <i class="fa-solid fa-clipboard-list fs-1 text-info-emphasis"></i>
+            </div>
+            <div class="empty-caption text-center mt-4">
+              <h4>No tasks yet!</h4>
+              <p class="text-secondary">
+                Start by adding your first task and stay organized.
+              </p>
+            </div>
+            <!-- Button trigger modal -->
+            <div class="empty-btn mt-4">
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#modal-overlay"
+                id="add-first-card"
+                class="btn btn-outline-info"
+              >
+                <i class="fa-solid fa-plus m-1"></i>
+                Add Your First Task
+              </button>
             </div>
           </div>
         </div>
