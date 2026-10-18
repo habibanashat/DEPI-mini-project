@@ -9,6 +9,148 @@ let editingId = null;
 
 
 // Functions 3 & 4
+//Function 3 & 4 Mostafa Hussein Mostafa Abdo
+
+function renderTasks() {
+    let taskList = document.getElementById("task-list");
+
+    taskList.innerHTML = "";
+
+    for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+
+        if (currentFilter == "active") {
+            if (task.status == "completed") {
+                continue;
+            }
+        } else if (currentFilter != "all" && task.status != currentFilter) {
+            continue;
+        }
+
+        if (!task.title.toLowerCase().includes(searchQuery)) {
+            continue;
+        }
+
+        let taskElement = createTaskItem(task);
+        taskList.appendChild(taskElement);
+    }
+}
+
+function createTaskItem(task) {
+
+    let column = document.createElement("div");
+    column.className = "col-md-6";
+
+    let card = document.createElement("div");
+    card.className = "card h-100 border-0 shadow-sm rounded-3";
+
+    if (task.priority.toLowerCase() == "high") {
+        card.classList.add("border-start", "border-5", "border-danger");
+    } else if (task.priority.toLowerCase() == "medium") {
+        card.classList.add("border-start", "border-5", "border-warning");
+    } else {
+        card.classList.add("border-start", "border-5", "border-success");
+    }
+
+    let header = document.createElement("div");
+    header.className = "card-header bg-white border-0 p-4";
+
+    let headerContent = document.createElement("div");
+    headerContent.className = "d-flex gap-3";
+
+    let circle = document.createElement("i");
+    circle.className = "fa-regular fa-circle fs-4 mt-1 status-circle";
+    circle.dataset.taskId = task.id;
+
+
+    let titleBox = document.createElement("div");
+    titleBox.className = "card-title";
+
+    let title = document.createElement("h5");
+    title.className = "fw-bold mb-2 task-title";
+    title.textContent = task.title;
+
+
+    if (task.status === "progress") {
+        circle.className = "fa-regular fa-clock fa-spin fs-4 mt-1 status-circle";
+
+    } else if (task.status === "completed") {
+        circle.className = "fa-solid fa-circle-check text-success fs-4 mt-1 status-circle";
+        title.classList.add("text-decoration-line-through", "text-secondary");
+    }
+
+    circle.addEventListener("click", function () {
+        changeStatus(task.id);
+    });
+
+    let description = document.createElement("p");
+    description.className = "task-description text-muted mb-0";
+    description.textContent = task.description;
+
+    titleBox.appendChild(title);
+    titleBox.appendChild(description);
+
+    headerContent.appendChild(circle);
+    headerContent.appendChild(titleBox);
+    header.appendChild(headerContent);
+
+    let body = document.createElement("div");
+    body.className = "card-body bg-white pt-0 px-4 pb-3";
+
+    let details = document.createElement("div");
+    details.className = "d-flex align-items-center gap-3";
+
+    let priority = document.createElement("span");
+    priority.className = "badge rounded-pill px-3 py-2 priority-badge";
+    priority.textContent = task.priority + " Priority";
+
+    if (task.priority.toLowerCase() == "high") {
+        priority.classList.add("bg-danger-subtle", "text-danger");
+    } else if (task.priority.toLowerCase() == "medium") {
+        priority.classList.add("bg-warning-subtle", "text-warning");
+    } else {
+        priority.classList.add("bg-success-subtle", "text-success");
+    }
+
+    let date = document.createElement("span");
+    date.className = "text-secondary badge bg-secondary-subtle rounded-pill px-3 py-2 border border-secondary task-date";
+
+    let calendar = document.createElement("i");
+    calendar.className = "fa-regular fa-calendar me-1";
+
+    date.appendChild(calendar);
+    date.appendChild(document.createTextNode(task.dueDate || ""));
+
+    details.appendChild(priority);
+    details.appendChild(date);
+    body.appendChild(details);
+
+    let footer = document.createElement("div");
+    footer.className = "card-footer bg-white border-0 px-4 pb-4 pt-0";
+
+    let buttons = document.createElement("div");
+    buttons.className = "d-flex justify-content-end gap-2";
+
+    let editButton = document.createElement("button");
+    editButton.className = "btn rounded-2 btn-sm fw-semibold btn-outline-primary edit-btn";
+    editButton.textContent = "Edit";
+    editButton.id = task.id;
+
+    let deleteButton = document.createElement("button");
+    deleteButton.className = "btn rounded-2 btn-sm fw-semibold btn-outline-danger delete-btn";
+    deleteButton.textContent = "Delete";
+    deleteButton.id = task.id;
+
+    buttons.appendChild(editButton);
+    buttons.appendChild(deleteButton);
+    footer.appendChild(buttons);
+    card.appendChild(header);
+    card.appendChild(body);
+    card.appendChild(footer);
+    column.appendChild(card);
+
+    return column;
+}
 
 
 
