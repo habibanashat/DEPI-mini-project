@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../CSS/all.min.css" />
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="../CSS/main.css" />
     <title>Taskly</title>
   </head>
 
@@ -26,7 +26,7 @@
             data-bs-toggle="modal"
             data-bs-target="#modal-overlay"
             id="add-card-btn"
-            class="btn btn-outline-dark"
+            class="btn"
           >
             <i class="fa-solid fa-plus m-1"></i>
             Add Task
@@ -293,26 +293,19 @@
           <div class="row justify-content-between">
             <div class="col-md-6">
               <!-- counts -->
+              <div
+                id="filters"
+                class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center"
+              >
+                <div
+                  class="active-count bg-secondary rounded-pill py-1 px-4 text-white"
+                >
+                  <p id="count-all" class="mb-0">All (5)</p>
+                </div>
 
-              <div id="filters" class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center">
-                
-                <button data-filter="all" 
-                class="filter-btn active-filter btn border-0 mb-0">
-                  All (5)
-                </button>
-                
-                <button data-filter="active" 
-                class="filter-btn btn border-0 mb-0">
-                  Active (3)
-                </button>
-                
-                <button data-filter="completed" 
-                class="filter-btn btn border-0 mb-0">
-                  Completed (2)
-                </button>
-              
+                <p id="count-active" class="mb-0">Active (3)</p>
+                <p id="count-completed" class="mb-0">Completed (2)</p>
               </div>
-
             </div>
 
             <div class="col-md-4">
@@ -459,9 +452,7 @@
           </div>
         </div>
       </section>
-
-      <!-- empty state -->
-      <section class="empty-state d-none">
+     <section class="empty-state d-none">
         <div class="container">
           <div
             class="empty-design d-flex flex-column justify-content-center align-items-center border shadow-sm p-5 rounded-4 bg-info-subtle vh-100"
@@ -490,12 +481,8 @@
           </div>
         </div>
       </section>
-    </main>
-
-    <script src="js/main.js"></script>
-    <script src="js/jquery-4.0.0.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/all.min.js"></script>
+      </main>
+    <script src="../JS/bootstrap.bundle.min.js"></script>
+    <script src="../JS/main.js"></script>
   </body>
 </html>
