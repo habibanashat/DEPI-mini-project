@@ -47,7 +47,7 @@ body{
 /* Custom styling and hover effects for the task filter buttons */
 .filter-btn {
     color: #212529; 
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-in-out !important;
     border-radius: 50rem !important;
     border: 1px solid transparent !important;
 }
@@ -55,7 +55,6 @@ body{
 /* (Hover) */
 .filter-btn:hover {
     border: 1px solid black !important; 
-    transform: translateY(-2px);
 }
 
 .active-filter {
