@@ -293,30 +293,26 @@
           <div class="row justify-content-between">
             <div class="col-md-6">
               <!-- counts -->
-              <div
-                id="filters"
-                class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center"
-              >
-                <button
-                  id="count-all"
-                  class="active-count all btn bg-secondary rounded-pill py-1 px-4 text-white mb-0"
-                >
+              <div id="filters" class="filters-content bg-secondary-subtle rounded-4 py-2 d-flex justify-content-evenly align-items-center">
+                
+                <button data-filter="all" 
+                class="filter-btn active-filter btn border-0 mb-0">
                   All (5)
                 </button>
-
-                <button id="count-active" class="btn active border-0 mb-0">
+                
+                <button data-filter="active" 
+                class="filter-btn btn border-0 mb-0">
                   Active (3)
                 </button>
-                <button id="count-completed" class="btn completed border-0 mb-0">
+                
+                <button data-filter="completed" 
+                class="filter-btn btn border-0 mb-0">
                   Completed (2)
                 </button>
-              <input
-                type="search"
-                id="search-input"
-                class="form-control py-2 ps-3 rounded-4"
-                placeholder="⌕ Search Tasks ..."
-              />
-            </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <input type="search" id="search-input" class="form-control py-2 ps-3 rounded-4" placeholder="⌕ Search Tasks ...">
           </div>
         </div>
       </section>
