@@ -1,4 +1,21 @@
-let tasks = [];
+let tasks = [
+    {
+        id: "1",
+        title: "Finish JavaScript Assignment",
+        description: "Complete array methods and functions.",
+        priority: "High",
+        dueDate: "2026-10-15",
+        status: "todo"
+    },
+    {
+        id: "2",
+        title: "Review React Components",
+        description: "Review reusable components.",
+        priority: "Medium",
+        dueDate: "Today",
+        status: "completed"
+    }
+];
 let currentFilter = "all";
 let searchQuery = "";
 let editingId = null;
@@ -8,16 +25,15 @@ let taskInput = document.getElementById("task-input");
 let taskPriority = document.getElementById("priority-picker");
 let taskDueDate = document.getElementById("task-date");
 let taskDescription = document.getElementById("Description");
+
 // Functions 1 & 2
 // Jana Ahmed Abdelfattah Bayoumi
 
-// Generating a new ID for new tasks
 function generateId() {
     const randomId = crypto.randomUUID();
     return randomId;
 }
 
-// Adding a new task
 function addTask(event) {
     event.preventDefault();
     const title = taskInput.value.trim();
@@ -32,7 +48,7 @@ function addTask(event) {
         priority: priority,
         dueDate: dueDate,
         description: description,
-        status: "todo"
+        status: "todo" 
     };
     tasks.push(newTask);
 
@@ -47,9 +63,8 @@ function addTask(event) {
 document.getElementById("task-form").addEventListener("submit", addTask);
 
 
-
 // Functions 3 & 4
-//Function 3 & 4 Mostafa Hussein Mostafa Abdo
+// Function 3 & 4 Mostafa Hussein Mostafa Abdo
 
 function renderTasks() {
     let taskList = document.getElementById("task-list");
@@ -100,8 +115,8 @@ function createTaskItem(task) {
 
     let circle = document.createElement("i");
     circle.className = "fa-regular fa-circle fs-4 mt-1 status-circle";
+    circle.style.cursor = "pointer";
     circle.dataset.taskId = task.id;
-
 
     let titleBox = document.createElement("div");
     titleBox.className = "card-title";
@@ -110,10 +125,8 @@ function createTaskItem(task) {
     title.className = "fw-bold mb-2 task-title";
     title.textContent = task.title;
 
-
     if (task.status === "progress") {
-        circle.className = "fa-regular fa-clock fa-spin fs-4 mt-1 status-circle";
-
+        circle.className = "fa-regular fa-clock fa-spin text-warning fs-4 mt-1 status-circle";
     } else if (task.status === "completed") {
         circle.className = "fa-solid fa-circle-check text-success fs-4 mt-1 status-circle";
         title.classList.add("text-decoration-line-through", "text-secondary");
@@ -193,9 +206,7 @@ function createTaskItem(task) {
 }
 
 
-
 // Functions 5 & 6
-
 /* By: Habiba Nashat
    Function 5: Change task status
 */
@@ -218,7 +229,6 @@ function changeStatus(id) {
     updateCounts();
 }
 
-
 /* Function 6: Update task counts */
 
 function updateCounts() {
@@ -236,19 +246,18 @@ function updateCounts() {
     const activeElement = document.getElementById("active-nums");
     const completedElement = document.getElementById("completed-nums");
 
-    if (totalElement) {
-        totalElement.textContent = totalCount;
-    }
+    if (totalElement) totalElement.textContent = totalCount;
+    if (activeElement) activeElement.textContent = activeCount;
+    if (completedElement) completedElement.textContent = completedCount;
 
-    if (activeElement) {
-        activeElement.textContent = activeCount;
-    }
+    const allBtn = document.querySelector('[data-filter="all"]');
+    const activeBtn = document.querySelector('[data-filter="active"]');
+    const completedBtn = document.querySelector('[data-filter="completed"]');
 
-    if (completedElement) {
-        completedElement.textContent = completedCount;
-    }
+    if (allBtn) allBtn.textContent = `All (${totalCount})`;
+    if (activeBtn) activeBtn.textContent = `Active (${activeCount})`;
+    if (completedBtn) completedBtn.textContent = `Completed (${completedCount})`;
 }
-
 
 
 // Functions 7 & 8
@@ -273,10 +282,10 @@ const filterTabs = document.querySelectorAll('[data-filter]');
 
 filterTabs.forEach(function(tab) {
     tab.addEventListener('click', function(e) {
-    
-        const clickedTab = e.currentTarget;
         
-        filterTabs.forEach(function(t){t.classList.remove('active-filter')});
+        // Update active button styling
+        const clickedTab = e.currentTarget;
+        filterTabs.forEach(function(t) { t.classList.remove('active-filter'); });
         clickedTab.classList.add('active-filter');
 
         const clickedFilter = clickedTab.getAttribute('data-filter');
@@ -285,8 +294,8 @@ filterTabs.forEach(function(tab) {
 });
 
 
-  // Function 12 => Searching for a task
-  // ================================
+// Function 12 => Searching for a task
+// ================================
 
 function searchTasks(query) {
     searchQuery = query.toLowerCase(); 
@@ -300,3 +309,5 @@ searchInput.addEventListener('input', function(e) {
     searchTasks(typedText);
 });
 
+renderTasks();
+updateCounts();
