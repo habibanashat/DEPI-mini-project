@@ -9,15 +9,16 @@ let taskPriority = document.getElementById("priority-picker");
 let taskDueDate = document.getElementById("task-date");
 let taskDescription = document.getElementById("Description");
 // Functions 1 & 2
-//Jana Ahmed Abdelfattah Bayoumi
+// Jana Ahmed Abdelfattah Bayoumi
 
-//Generating a new ID for new tasks
-function generateId(){
+// Generating a new ID for new tasks
+function generateId() {
     const randomId = crypto.randomUUID();
     return randomId;
 }
+
 // Adding a new task
-function addTask(event){
+function addTask(event) {
     event.preventDefault();
     const title = taskInput.value.trim();
     const priority = taskPriority.value;
@@ -31,12 +32,19 @@ function addTask(event){
         priority: priority,
         dueDate: dueDate,
         description: description,
-        completed: false
+        status: "todo"
     };
     tasks.push(newTask);
-    
+
+    saveTasks();
+    renderTasks();
+    updateCounts();
+
+    document.getElementById("task-form").reset();
+    document.getElementById("close-modal-btn").click();
 }
 
+document.getElementById("task-form").addEventListener("submit", addTask);
 
 
 
