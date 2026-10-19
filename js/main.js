@@ -4,7 +4,39 @@ let searchQuery = "";
 let editingId = null;
 
 
+let taskInput = document.getElementById("task-input");
+let taskPriority = document.getElementById("priority-picker");
+let taskDueDate = document.getElementById("task-date");
+let taskDescription = document.getElementById("Description");
 // Functions 1 & 2
+//Jana Ahmed Abdelfattah Bayoumi
+
+//Generating a new ID for new tasks
+function generateId(){
+    const randomId = crypto.randomUUID();
+    return randomId;
+}
+// Adding a new task
+function addTask(event){
+    event.preventDefault();
+    const title = taskInput.value.trim();
+    const priority = taskPriority.value;
+    const dueDate = taskDueDate.value;
+    const description = taskDescription.value.trim();
+    if (!title) return;
+
+    const newTask = {
+        id: generateId(),
+        title: title,
+        priority: priority,
+        dueDate: dueDate,
+        description: description,
+        completed: false
+    };
+    tasks.push(newTask);
+    
+}
+
 
 
 
