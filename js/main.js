@@ -194,6 +194,14 @@ function createTaskItem(task) {
     deleteButton.textContent = "Delete";
     deleteButton.id = task.id;
 
+    editButton.addEventListener("click", function () {
+    editTask(task.id);
+    });
+
+    deleteButton.addEventListener("click", function () {
+    deleteTask(task.id);
+    });
+
     buttons.appendChild(editButton);
     buttons.appendChild(deleteButton);
     footer.appendChild(buttons);
@@ -260,7 +268,41 @@ function updateCounts() {
 }
 
 
-// Functions 7 & 8
+// Function 7 & 8
+// Tasneem Adel Bassuoni
+
+function deleteTask(id) {
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === id) {
+      tasks.splice(i, 1);
+      break;
+    }
+  }
+
+  renderTasks();
+  updateCounts();
+}
+
+function editTask(id) {
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === id) {
+      editingId = id;
+
+      taskInput.value = tasks[i].title;
+      taskPriority.value = tasks[i].priority;
+      taskDueDate.value = tasks[i].dueDate;
+      taskDescription.value = tasks[i].description;
+
+      document.getElementById("submit-text").textContent = "Save Changes";
+      let modalElement = document.getElementById("modal-overlay");
+      let modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+      modal.show();
+      break;
+    }
+  }
+}
+
 
 
 
